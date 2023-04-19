@@ -1,16 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
     <title>Astronauts</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+      .astronaut {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        width: 400px;
+      }
+      .astronaut h3 {
+        margin-top: 0;
+      }
+      .astronaut img {
+        max-width: 100%;
+      }
+    </style>
   </head>
   <body>
-    <script src="script.js"></script>
-    <h1>Astronauts</h1>
-    <div id="container">
-        <!-- List of astronauts will be added here dynamically -->
-    </div>
+    <div id="container"></div>
+    <script>
+      window.addEventListener('load', () => {
+        fetch('https://handlers.education.launchcode.org/static/astronauts.json')
+          .then(response => response.json())
+          .then(data => {
+            const container = document.querySelector('#container');
+            data.forEach(astronaut => {
+              const div = document.createElement('div');
+              div.classList.add('astronaut');
+              div.innerHTML = `
+                <img src="${astronaut.picture}">
+                <h3>${astronaut.firstName} ${astronaut.lastName}</h3>
+                <ul>
+                  <li>Hours in space: ${astronaut.hoursInSpace}</li>
+                  <li>Active: ${astronaut.active}</li>
+                  <li>Skills: ${astronaut.skills.join(', ')}</li>
+                </ul>
+              `;
+              container.appendChild(div);
+            });
+          });
+      });
+    </script>
   </body>
 </html>
