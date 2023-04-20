@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>Astronauts</title>
@@ -21,27 +21,29 @@
   <body>
     <div id="container"></div>
     <script>
-      window.addEventListener('load', () => {
+      window.addEventListener('load',function() {
         fetch('https://handlers.education.launchcode.org/static/astronauts.json')
-          .then(response => response.json())
-          .then(data => {
-            const container = document.querySelector('#container');
-            data.forEach(astronaut => {
-              const div = document.createElement('div');
-              div.classList.add('astronaut');
-              div.innerHTML = `
-                <img src="${astronaut.picture}">
-                <h3>${astronaut.firstName} ${astronaut.lastName}</h3>
-                <ul>
-                  <li>Hours in space: ${astronaut.hoursInSpace}</li>
-                  <li>Active: ${astronaut.active}</li>
-                  <li>Skills: ${astronaut.skills.join(', ')}</li>
-                </ul>
-              `;
-              container.appendChild(div);
-            });
-          });
-      });
+          .then(function(response)response.json().then(function(jsonResponse) {
+            let container = document.getElementById('container');
+            let newMarkup = '';
+            for(let i = 0; i < jsonResponse.length; i++){ console.log(jsonResponse[i].firstName);
+              console.log(jsonResponse[i]);
+              let skillsMarkup = jsonResponse[i].skills.join(', ');
+              newMarkup += `<div class="astronaut">
+   <div class="bio">
+      <h3>${jsonResponse[i].firstName} ${jsonResponse[i].lastName}</h3>
+      <ul>
+         <li>Hours in space: ${jsonResponse[i].hoursInSpace}</li>
+         <li>Active: ${jsonResponse[i].active}</li>
+         <li>Skills: ${skillsMarkup}</li>
+      </ul>
+   </div>
+   <img class="avatar" ${jsonResponse[i].picture} >
+</div>`;
+            }        
     </script>
   </body>
 </html>
+          }
+          container.innerhtml = newMarkup
+        }
