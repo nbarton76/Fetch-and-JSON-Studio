@@ -1,18 +1,20 @@
-window.addEventListener('load', function(){
-   fetch("https://handlers.education.launchcode.org/static/astronauts.json").then(function(response){
-       response.json().then(function(jsonResponse){
-           let container = document.getElementById("container");
-           let newMarkup = '';
+window.addEventListener("load", function () {
+  fetch(
+    "https://handlers.education.launchcode.org/static/astronauts.json"
+  ).then(function (response) {
+    response.json().then(function (jsonResponse) {
+      let container = document.getElementById("container");
+      let newMarkup = "";
 
-           for(let i = 0; i < jsonResponse.length; i++){
-               let skillsMarkup = jsonResponse[i].skills.join(', ');
+      for (let i = 0; i < jsonResponse.length; i++) {
+        let skillsMarkup = jsonResponse[i].skills.join(", ");
 
-               let activeText = ' class="red"';
-               if(jsonResponse[i].active === true) {
-                   activeText = ' class="green"';
-               }
+        let activeText = ' class="red"';
+        if (jsonResponse[i].active === true) {
+          activeText = ' class="green"';
+        }
 
-               newMarkup += `<div class="astronaut">
+        newMarkup += `<div class="astronaut">
                    <div class="bio">
                        <h3>${jsonResponse[i].firstName} ${jsonResponse[i].lastName}</h3>
                        <ul>
@@ -23,9 +25,9 @@ window.addEventListener('load', function(){
                    </div>
                    <img class="avatar" src="${jsonResponse[i].picture}">
                </div>`;
-           }
+      }
 
-           container.innerHTML = newMarkup;
-       });
-   });
+      container.innerHTML = newMarkup;
+    });
+  });
 });

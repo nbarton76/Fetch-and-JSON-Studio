@@ -1,50 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
     <title>Astronauts</title>
-    <style>
-      .astronaut {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-        width: 400px;
-      }
-      .astronaut h3 {
-        margin-top: 0;
-      }
-      .astronaut img {
-        max-width: 100%;
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    
   </head>
   <body>
-    <div id="container"></div>
-    <script>
-      window.addEventListener('load',function() {
-        fetch('https://handlers.education.launchcode.org/static/astronauts.json')
-          .then(function(response)response.json().then(function(jsonResponse) {
-            let container = document.getElementById('container');
-            let newMarkup = '';
-            for(let i = 0; i < jsonResponse.length; i++){ console.log(jsonResponse[i].firstName);
-              console.log(jsonResponse[i]);
-              let skillsMarkup = jsonResponse[i].skills.join(', ');
-              newMarkup += `<div class="astronaut">
-   <div class="bio">
-      <h3>${jsonResponse[i].firstName} ${jsonResponse[i].lastName}</h3>
-      <ul>
-         <li>Hours in space: ${jsonResponse[i].hoursInSpace}</li>
-         <li>Active: ${jsonResponse[i].active}</li>
-         <li>Skills: ${skillsMarkup}</li>
-      </ul>
-   </div>
-   <img class="avatar" ${jsonResponse[i].picture} >
-</div>`;
-            }        
-            container.innerhtml = newMarkup      
-    </script>
+    <script src="script.js"></script>
+    <h1>Astronauts</h1>
+    <div id="container">
+        <!-- List of astronauts will be added here dynamically -->
+    </div>
+    <div id="astronautCount"></div>
   </body>
 </html>
-
-         
-        
