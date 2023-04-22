@@ -13,4 +13,14 @@
     padding: 5px;
     margin-bottom: 20px;
     border-radius: 6px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
 }

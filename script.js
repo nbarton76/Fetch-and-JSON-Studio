@@ -1,80 +1,31 @@
-[
-    {
-       "id": 1,
-       "active": false,
-       "firstName": "Mae",
-       "lastName": "Jemison",
-       "skills": [
-             "Physician", "Chemical Engineer"
-       ],
-       "hoursInSpace": 190,
-       "picture": "mae-jemison.jpg"
-    },
-    {
-       "id": 2,
-       "active": false,
-       "firstName": "Frederick",
-       "lastName": "Gregory",
-       "skills": [
-             "Information Systems" , "Shuttle Pilot", "Fighter Pilot", "Helicopter Pilot", "Colonel USAF"
-       ],
-       "hoursInSpace": 455,
-       "picture": "frederick-gregory.jpg" 
-    },
-    {
-       "id": 3,
-       "active": false,
-       "firstName": "Ellen",
-       "lastName": "Ochoa",
-       "skills": [
-             "Physics", "Electrical Engineer" 
-       ],
-       "hoursInSpace": 979,
-       "picture": "ellen-ochoa.jpg"
-    },
-    {
-       "id": 4,
-       "active": false,
-       "firstName": "Guion",
-       "lastName": "Bluford",
-       "skills": [
-             "Aerospace Engineer", "Philosophy", "Physics", "Colonel USAF",
-             "Fighter Pilot"
-       ],
-       "hoursInSpace": 686,
-       "picture": "guion-bluford.jpg"
-    },
-    {
-       "id": 5,
-       "active": false,
-       "firstName": "Sally",
-       "lastName": "Ride",
-       "skills": [
-             "Physicist", "Astrophysics"
-       ],
-       "hoursInSpace": 343,
-       "picture": "sally-ride.jpg"
-    },
-    {
-       "id": 6,
-       "active": true,
-       "firstName": "Kjell",
-       "lastName": "Lindgren",
-       "skills": [
-             "Physician", "Surgeon", "Emergency Medicine"
-       ],
-       "hoursInSpace": 15,
-       "picture": "kjell-lindgren.jpg"
-    },
-    {
-       "id": 7,
-       "active": true,
-       "firstName": "Jeanette",
-       "lastName": "Epps",
-       "skills": [
-             "Physicist", "Philosophy", "Aerospace Engineer"
-       ],
-       "hoursInSpace": 0,
-       "picture": "jeanette-epps.jpg"
-    }
- ]
+window.addEventListener('load', function(){
+   fetch("https://handlers.education.launchcode.org/static/astronauts.json").then(function(response){
+       response.json().then(function(jsonResponse){
+           let container = document.getElementById("container");
+           let newMarkup = '';
+
+           for(let i = 0; i < jsonResponse.length; i++){
+               let skillsMarkup = jsonResponse[i].skills.join(', ');
+
+               let activeText = ' class="red"';
+               if(jsonResponse[i].active === true) {
+                   activeText = ' class="green"';
+               }
+
+               newMarkup += `<div class="astronaut">
+                   <div class="bio">
+                       <h3>${jsonResponse[i].firstName} ${jsonResponse[i].lastName}</h3>
+                       <ul>
+                           <li>Hours in space: ${jsonResponse[i].hoursInSpace}</li>
+                           <li${activeText}>Active: ${jsonResponse[i].active}</li>
+                           <li>Skills: ${skillsMarkup}</li>
+                       </ul>
+                   </div>
+                   <img class="avatar" src="${jsonResponse[i].picture}">
+               </div>`;
+           }
+
+           container.innerHTML = newMarkup;
+       });
+   });
+});
